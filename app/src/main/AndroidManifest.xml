@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.asus.ecommerceapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application
+
+        android:usesCleartextTraffic="true"
+        android:allowBackup="true"
+        android:icon="@drawable/logo_top"
+        android:networkSecurityConfig="@xml/network_security"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo_top"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:icon">
+        <activity android:name="com.asus.ecommerceapp.activity.KonfirmasiProdukActivity" />
+        <activity android:name="com.asus.ecommerceapp.activity.KonfirmasiGroomingActivity" />
+        <activity android:name="com.asus.ecommerceapp.activity.KonfirmasiPenitipanActivity" />
+        <activity android:name="com.asus.ecommerceapp.activity.DetailOrderActivity" />
+        <activity android:name="com.asus.ecommerceapp.activity.EditCartActivity" />
+        <activity android:name="com.asus.ecommerceapp.activity.CheckoutActivity" />
+        <activity
+            android:name="com.asus.ecommerceapp.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.asus.ecommerceapp.activity.LoginActivity" />
+        <activity android:name="com.asus.ecommerceapp.activity.SignUpActivity" />
+        <activity android:name="com.asus.ecommerceapp.activity.SplashScreenActivity" />
+        <activity
+            android:name="com.asus.ecommerceapp.activity.DetailActivity"
+            android:label="@string/title_activity_detail"
+            android:theme="@style/AppTheme" />
+        <activity android:name="com.asus.ecommerceapp.activity.CartActivity" />
+        <activity android:name="com.asus.ecommerceapp.activity.PenitipanActivity" />
+        <activity android:name="com.asus.ecommerceapp.activity.GroomingActivity" />
+        <activity android:name="com.asus.ecommerceapp.activity.ProfilActivity" />
+        <activity android:name="com.asus.ecommerceapp.activity.HistoryActivity" />
+        <service
+            android:name="com.asus.ecommerceapp.feature.SchedulerService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="com.google.android.gms.permission.BIND_NETWORK_TASK_SERVICE">
+            <intent-filter>
+                <action android:name="com.google.android.gms.gcm.ACTION_TASK_READY" />
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo_top" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id"/>
+        <service
+            android:name="com.asus.ecommerceapp.fcm.MyMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <uses-library android:name = "org.apache.http.legacy" android:required = "false"/>
+    </application>
+
+</manifest>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_profil"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="Profil" />
+        <item
+            android:id="@+id/nav_produk"
+            android:icon="@drawable/ic_list_black_24dp"
+            android:title="Produk" />
+        <item
+            android:id="@+id/nav_penitipan"
+            android:icon="@drawable/penitipan"
+            android:title="Booking Penitipan" />
+        <item
+            android:id="@+id/nav_grooming"
+            android:icon="@drawable/groowing"
+            android:title="Booking Grooming" />
+        <item
+            android:id="@+id/nav_tf"
+            android:icon="@drawable/tf"
+            android:title="Transfer Confirmation" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="History" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/history"
+            android:title="About" />
+    </group>
+
+    <item android:title="Aksi">
+        <menu>
+            <item
+                android:id="@+id/nav_login"
+                android:icon="@drawable/login"
+                android:title="Login" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/logout"
+                android:title="Logout" />
+        </menu>
+    </item>
+
+</menu>

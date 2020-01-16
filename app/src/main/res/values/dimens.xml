@@ -1,0 +1,47 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="item_offset">10dp</dimen>
+    <dimen name="detail_backdrop_height">250dp</dimen>
+    <dimen name="backdrop_title">30dp</dimen>
+    <dimen name="backdrop_subtitle">18dp</dimen>
+    <dimen name="card_margin">5dp</dimen>
+    <dimen name="card_album_radius">0dp</dimen>
+    <dimen name="album_cover_height">160dp</dimen>
+    <dimen name="album_title_padding">10dp</dimen>
+    <dimen name="album_title">15dp</dimen>
+    <dimen name="songs_count_padding_bottom">5dp</dimen>
+    <dimen name="songs_count">12dp</dimen>
+    <dimen name="ic_album_overflow_width">20dp</dimen>
+    <dimen name="ic_album_overflow_height">30dp</dimen>
+    <dimen name="ic_album_overflow_margin_top">10dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="SplashText">24sp</dimen>
+    <dimen name="ProductImageHeight">200dp</dimen>
+    <dimen name="ProductTitle">14sp</dimen>
+    <dimen name="ProductPrice">16sp</dimen>
+    <dimen name="ProductWishIconSize">48dp</dimen>
+    <dimen name="CategoryTitleSize">16sp</dimen>
+    <dimen name="SubCategorySize">14sp</dimen>
+    <dimen name="SubCategoryImageSize">64sp</dimen>
+    <dimen name="defaultMargin">8dp</dimen>
+    <dimen name="gridBorderWidth">1dp</dimen>
+    <dimen name="halfMargin">4dp</dimen>
+    <dimen name="sortMain">14sp</dimen>
+    <dimen name="sortSub">10sp</dimen>
+    <dimen name="filter">14sp</dimen>
+    <dimen name="sort_filter_height">48dp</dimen>
+    <dimen name="product_detail_button">16sp</dimen>
+    <dimen name="account_name">18sp</dimen>
+    <dimen name="account_title">16sp</dimen>
+    <dimen name="account_content">14sp</dimen>
+    <dimen name="payable_amt">14sp</dimen>
+    <dimen name="reg_edittext">16sp</dimen>
+    <dimen name="reg_title">14sp</dimen>
+    <dimen name="app_default">16sp</dimen>
+</resources>

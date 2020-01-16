@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.GroomingActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:id="@+id/appbar"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/Theme.AppCompat"/>
+
+    </android.support.design.widget.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/appbar"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_below="@id/appbar"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="36dp"
+                android:layout_marginRight="36dp"
+                android:orientation="vertical">
+                <!--android:background="@drawable/rect_white1"-->
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:paddingBottom="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15.5dp"
+                        android:background="#00000000"
+                        android:textColor="#000"
+                        android:textSize="15.4sp"
+                        android:textColorHint="@color/black"
+                        android:text="Nama"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_chevron_right_black_24dp"
+                        android:layout_marginLeft="10dp"
+                        android:tint="@color/black"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint="Nama"
+                        android:inputType="textAutoComplete"
+                        android:layout_marginLeft="15.5dp"
+                        android:textSize="15.4sp"
+                        android:textColor="@color/black"
+                        android:id="@+id/edt_nama"
+                        android:textColorHint="@color/black"/>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:paddingBottom="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15.5dp"
+                        android:background="#00000000"
+                        android:textColor="#000"
+                        android:textSize="15.4sp"
+                        android:textColorHint="@color/black"
+                        android:text="Email"/>
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_chevron_right_black_24dp"
+                        android:layout_marginLeft="10dp"
+                        android:tint="@color/black"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint="Email"
+                        android:inputType="textEmailAddress"
+                        android:layout_marginLeft="15.5dp"
+                        android:textSize="15.4sp"
+                        android:textColor="@color/black"
+                        android:id="@+id/edt_email"
+                        android:textColorHint="@color/black"/>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:paddingBottom="15dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15.5dp"
+                        android:background="#00000000"
+                        android:textColor="#000"
+                        android:textSize="15.4sp"
+                        android:textColorHint="@color/black"
+                        android:text="No HP"/>
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_chevron_right_black_24dp"
+                        android:layout_marginLeft="10dp"
+                        android:tint="@color/black"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint="No HP"
+                        android:inputType="number"
+                        android:layout_marginLeft="15.5dp"
+                        android:textSize="15.4sp"
+                        android:textColor="@color/black"
+                        android:id="@+id/edt_hp"
+                        android:textColorHint="@color/black"/>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:paddingBottom="15dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15.5dp"
+                        android:background="#00000000"
+                        android:textColor="#000"
+                        android:textSize="15.4sp"
+                        android:textColorHint="@color/black"
+                        android:text="Alamat"/>
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_chevron_right_black_24dp"
+                        android:layout_marginLeft="10dp"
+                        android:tint="@color/black"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint="Alamat"
+                        android:inputType="textAutoComplete"
+                        android:layout_marginLeft="15.5dp"
+                        android:textSize="15.4sp"
+                        android:textColor="@color/black"
+                        android:id="@+id/edt_alamat"
+                        android:textColorHint="@color/black"/>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp"
+                    android:paddingBottom="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15.5dp"
+                        android:background="#00000000"
+                        android:textColor="#000"
+                        android:textSize="15.4sp"
+                        android:textColorHint="@color/black"
+                        android:text="Password"/>
+
+
+                    <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_chevron_right_black_24dp"
+                    android:layout_marginLeft="10dp"
+                    android:tint="@color/black"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:layout_marginLeft="15.5dp"
+                    android:textSize="15.4sp"
+                    android:textColor="@color/black"
+                    android:id="@+id/edt_pass"
+                    android:textColorHint="@color/black"/>
+            </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000"/>
+
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="36dp"
+                android:layout_marginRight="36dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/rect_black"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
+                android:padding="19dp"
+                android:id="@+id/btn_edit"
+                android:text="Ubah"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

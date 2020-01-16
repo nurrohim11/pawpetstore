@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/itemLay"
+        android:focusableInTouchMode="false"
+        android:layout_toLeftOf="@+id/remove"
+        android:focusable="true"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_gambar"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_margin="@dimen/defaultMargin"
+            android:background="@color/stroke"
+            android:scaleType="center"
+            android:src="@drawable/ic_image_grey600_36dp" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/defaultMargin"
+            android:layout_toRightOf="@+id/img_gambar"
+            android:text="Sample"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/l_qty"
+            android:layout_below="@+id/tv_title"
+            android:orientation="horizontal"
+            android:layout_alignLeft="@+id/tv_title"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title"
+                android:layout_alignLeft="@+id/tv_title"
+                android:layout_marginLeft="4dp"
+                android:text="4"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:visibility="visible" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title"
+                android:layout_alignLeft="@+id/tv_title"
+                android:layout_marginLeft="4dp"
+                android:text="Quantity"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:visibility="visible" />
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/harga"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/img_gambar"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/l_qty"
+            android:layout_alignLeft="@+id/l_qty"
+            android:layout_marginLeft="4dp"
+            android:text="Harga"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/remove"
+        android:focusable="true"
+        android:clickable="true"
+        android:focusableInTouchMode="false"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_margin="@dimen/defaultMargin"
+        android:src="@drawable/ic_delete_black_24dp" />
+
+    <ImageButton
+        android:id="@+id/img_edit"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/remove"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="@dimen/defaultMargin"
+        android:layout_marginTop="-14dp"
+        android:layout_marginEnd="@dimen/defaultMargin"
+        android:layout_marginRight="7dp"
+        android:layout_marginBottom="@dimen/defaultMargin"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="false"
+        android:src="@drawable/ic_mode_edit_black_24dp" />
+
+    <LinearLayout
+        android:id="@+id/qtyLay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemLay"
+        android:layout_margin="@dimen/defaultMargin"
+        android:orientation="horizontal">
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_harga"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/itemLay"
+        android:layout_marginRight="@dimen/defaultMargin"
+        android:layout_marginTop="@dimen/defaultMargin"
+        android:text="Rs. 7000"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+
+</RelativeLayout>

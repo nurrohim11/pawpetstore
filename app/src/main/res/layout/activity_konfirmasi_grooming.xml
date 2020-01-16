@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.PenitipanActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:id="@+id/appbar"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/Theme.AppCompat"/>
+
+    </android.support.design.widget.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/appbar"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_below="@id/appbar"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingRight="5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No Order"
+                        android:textSize="15.4sp"
+                        android:textColor="#000"/>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint=""
+                        android:inputType="text"
+                        android:textSize="15.4sp"
+                        android:enabled="false"
+                        android:editable="false"
+                        android:textColor="#000"
+                        android:id="@+id/edt_order"
+                        android:textColorHint="#000"/>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Total"
+                        android:textSize="15.4sp"
+                        android:textColor="#000"/>
+
+                    <EditText
+                        android:id="@+id/edt_total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint=""
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="15.4sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Transfer Ke"
+                        android:textSize="15.4sp"
+                        android:textColor="#000"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|left"
+                        >
+
+                        <Spinner
+                            android:id="@+id/sp_akun"
+                            android:layout_width="400dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:background="@android:drawable/btn_dropdown"
+                            android:paddingBottom="0dp"
+                            android:layout_marginBottom="0dp"
+                            />
+
+                        <!-- Fake TextView to use to set in an error state to allow an error to be shown for the TextView -->
+                        <android.widget.TextView
+                            android:id="@+id/tvInvisibleError"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_alignRight="@+id/sp_akun"
+                            android:layout_alignBottom="@+id/sp_akun"
+                            android:layout_marginTop="0dp"
+                            android:paddingTop="0dp"
+                            android:paddingRight="50dp"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Dari Rekening"
+                        android:textSize="15.4sp"
+                        android:textColor="#000"/>
+
+                    <EditText
+                        android:id="@+id/edt_dariakun"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint=""
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="15.4sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nama Rekening"
+                        android:textSize="15.4sp"
+                        android:textColor="#000"/>
+
+                    <EditText
+                        android:id="@+id/edt_namaakun"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint=""
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"
+                        android:textSize="15.4sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/img_gambar"
+                        android:src="@drawable/placeholder"/>
+
+                    <Button
+                        android:id="@+id/buttonChoose"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@android:drawable/ic_menu_gallery"
+                        android:text="Choose Image" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#000"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="36dp"
+                    android:layout_marginRight="36dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/rect_black"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center"
+                    android:padding="19dp"
+                    android:id="@+id/btn_konfirmasi"
+                    android:text="KONFIRMASI"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
