@@ -2,9 +2,13 @@ package com.asus.ecommerceapp.activity;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.asus.ecommerceapp.MainActivity;
 import com.asus.ecommerceapp.Networking.APIClient;
 import com.asus.ecommerceapp.Networking.APIInterface;
 import com.asus.ecommerceapp.R;
@@ -32,6 +37,7 @@ import retrofit2.Response;
 
 public class PenitipanActivity extends AppCompatActivity {
     public  static final String TAG="Response Session";
+    public static final int PICK_PENITIPAN = 2;
     UserSession session;
     @BindView(R.id.edt_dari)
     EditText edtDari;
@@ -57,7 +63,7 @@ public class PenitipanActivity extends AppCompatActivity {
         Log.d(TAG, "Session: "+session.getEmail());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Order Penitirpan");
+        getSupportActionBar().setTitle("Animal Care Booking");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
         edtDari.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +79,6 @@ public class PenitipanActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        // set day of month , month and year value in the edit text
                         edtDari.setText(dayOfMonth+ "-"+ (monthOfYear + 1) + "-" + year);
 
                     }
@@ -103,10 +108,7 @@ public class PenitipanActivity extends AppCompatActivity {
             }
         });
         mRegProgres = new ProgressDialog(this);
-//        if (session != null && session.getUserID()!= null && session.getEmail() != null){
-//            TextView tvTest = (TextView)findViewById(R.id.tv_test);
-//            tvTest.setText(session.getEmail());
-//        }
+
         btnNitip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,8 +127,14 @@ public class PenitipanActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<ResponseOrderPenitipan> call, Response<ResponseOrderPenitipan> response) {
                                 if (response.body().getSuccess() == true){
-                                    Toast.makeText(PenitipanActivity.this, response.body().getInfo(), Toast.LENGTH_SHORT).show();
+//                                    Bundle b = new Bundle();
+//                                    b.putInt("type",2);
+//                                    Intent intent=new Intent();
                                     mRegProgres.dismiss();
+//                                    Toast.makeText(PenitipanActivity.this, response.body().getInfo(), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(PenitipanActivity.this, PenitipanCheckoutActivity.class);
+                                    startActivityForResult(intent,PICK_PENITIPAN);
+//                                    startActivity(intent);
                                     finish();
                                 }else{
                                     mRegProgres.dismiss();
@@ -142,12 +150,23 @@ public class PenitipanActivity extends AppCompatActivity {
                         });
                     }
                 }else {
-                    Toast.makeText(PenitipanActivity.this, "Anda Harus Login Terlebih Dahulu", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PenitipanActivity.this, "Anda Harus Sign In Terlebih Dahulu", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_PENITIPAN) {
+            if (resultCode == RESULT_OK) {
+                finish();
+            }
+        }
+    }
+
     @Override
     protected void onDestroy(){
         super.onDestroy();

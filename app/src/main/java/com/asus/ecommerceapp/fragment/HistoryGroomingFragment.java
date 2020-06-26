@@ -6,9 +6,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +27,6 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.support.constraint.Constraints.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,7 +79,7 @@ public class HistoryGroomingFragment extends Fragment {
             public void onResponse(Call<HistoryGroomingResponse> call, Response<HistoryGroomingResponse> response) {
                 if (response.isSuccessful()){
                     adapter.updateData(response.body().getHistoryGrooming());
-                    Log.d(TAG, "Response" +response.body().getHistoryGrooming());
+                    Log.d(">>>>", "Response" +response.body().getHistoryGrooming());
                     mRegProgres.dismiss();
 
                     Toast.makeText(getActivity(),"response" +response.body().getHistoryGrooming(), Toast.LENGTH_SHORT);

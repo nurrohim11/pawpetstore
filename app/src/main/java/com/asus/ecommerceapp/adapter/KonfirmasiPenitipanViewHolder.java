@@ -1,12 +1,14 @@
 package com.asus.ecommerceapp.adapter;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.asus.ecommerceapp.fragment.KonfirmasiPenitipanFragment;
 import com.google.gson.Gson;
 import com.asus.ecommerceapp.R;
 import com.asus.ecommerceapp.activity.KonfirmasiPenitipanActivity;
@@ -61,7 +63,7 @@ public class KonfirmasiPenitipanViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 Intent intent = new Intent(itemView.getContext(), KonfirmasiPenitipanActivity.class);
                 intent.putExtra(KonfirmasiPenitipanActivity.KONFIRMASI_ITEM, new Gson().toJson(item));
-                itemView.getContext().startActivity(intent);
+                ((Activity) itemView.getContext()).startActivityForResult(intent, KonfirmasiPenitipanFragment.PICK_CONFIRMATION_PENITIPAN);
             }
         });
     }

@@ -1,9 +1,12 @@
 package com.asus.ecommerceapp.activity;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
+
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,37 +36,34 @@ public class CheckoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Checkout");
+        getSupportActionBar().setTitle("Final Products");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle b = getIntent().getExtras();
         TextView tvTotal = (TextView)findViewById(R.id.tv_ctotal);
         tvTotal.setText(b.getString("total"));
         session = new UserSession(this);
         getInitData();
-     //   getNoOrder();
 
         Button btnSelesai = (Button) findViewById(R.id.btnSelesai);
         btnSelesai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String id = session.getUserID();
-                Log.d("Checkout Activity","Response"+ id);
                 APIInterface apiInterface1 = APIClient.getClient().create(APIInterface.class);
                 Call<RequestResponse> call1 =apiInterface1.checkout(new Checkout(id));
                 call1.enqueue(new Callback<RequestResponse>() {
                     @Override
                     public void onResponse(Call<RequestResponse> call, Response<RequestResponse> response) {
                         if (response.body().getSuccess() == true){
-                            Toast.makeText(CheckoutActivity.this,"Berhasil Guys. Silahkan cek di history",Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(CheckoutActivity.this, MainActivity.class);
-                            // Closing all the Activities
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            // Add new Flag to start new Activity
-                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            // Staring Login Activity
-                            startActivity(i);
-                            finish();
-//                            startActivity(new Intent(CheckoutActivity.this, MainActivity.class));
+                            Toast.makeText(CheckoutActivity.this,"Checkout telah berhasil. Silahkan lanjut ke transfer conformation",Toast.LENGTH_SHORT).show();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent returnIntent = new Intent();
+                                    setResult(Activity.RESULT_OK,returnIntent);
+                                    finish();
+                                }
+                            },1000);
                         }
                     }
                     @Override
@@ -101,21 +101,5 @@ public class CheckoutActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-//    private  void getNoOrder(){
-//        session = new UserSession(this);
-//        final TextView tv_noorder = (TextView) findViewById(R.id.tv_noorder);
-//        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
-//        Call<NoOrderResponse> call = apiInterface.getNoOrder();
-//        call.enqueue(new Callback<NoOrderResponse>() {
-//            @Override
-//            public void onResponse(Call<NoOrderResponse> call, Response<NoOrderResponse> response) {
-//                tv_noorder.setText(response.body().getNoOrder());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<NoOrderResponse> call, Throwable t) {
-//
-//            }
-//        });
-//    }
+
 }

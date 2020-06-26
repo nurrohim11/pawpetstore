@@ -5,10 +5,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="@dimen/_200sdp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="2dp"
@@ -25,7 +25,7 @@
         android:orientation="vertical">
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/_200sdp"
             android:id="@id/img_produk"
             android:src="@drawable/ourproduk"
             />
@@ -35,18 +35,30 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="horizontal">
-            <ImageView
-                android:layout_width="180dp"
-                android:layout_height="200dp"
-                android:id="@+id/img_grooming"
-                android:src="@drawable/bookinggrooming"
-                />
-            <ImageView
-                android:layout_width="180dp"
-                android:layout_height="200dp"
-                android:id="@+id/img_nitip"
-                android:src="@drawable/bookingpenitipan"
-                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/img_grooming"
+                    android:src="@drawable/groomingbooking4"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/img_nitip"
+                    android:src="@drawable/animalcarebooking4"
+                    />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -28,8 +28,6 @@ import java.util.Random;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class showPesanService extends GcmTaskService {
 
@@ -56,7 +54,7 @@ public class showPesanService extends GcmTaskService {
             @Override
             public void onResponse(Call<ResponseNotif> call, Response<ResponseNotif> response) {
                 if (response.isSuccessful()){
-                    Log.d(TAG, "Response" +response.body().getNotif());
+                    Log.d(">>>>", "Response" +response.body().getNotif());
                     List<NotifItem> items= response.body().getNotif();
                     int index = new Random().nextInt(items.size());
 

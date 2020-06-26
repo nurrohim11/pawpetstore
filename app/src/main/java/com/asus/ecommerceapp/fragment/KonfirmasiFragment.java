@@ -2,11 +2,11 @@ package com.asus.ecommerceapp.fragment;
 
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +36,14 @@ public class KonfirmasiFragment extends Fragment {
         setupViewPager(viewPager);
         // Set Tabs inside Toolbar
         TabLayout tabs = (TabLayout) v.findViewById(R.id.result_tabs);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            int type = bundle.getInt("type", -1);
+            if(type== 2){
+                viewPager.setCurrentItem(2, true);
+            }
+            bundle.clear();
+        }
         tabs.setupWithViewPager(viewPager);
 
 
@@ -46,9 +54,9 @@ public class KonfirmasiFragment extends Fragment {
 
 
         Adapter adapter = new Adapter(getChildFragmentManager());
-        adapter.addFragment(new KonfirmasiProdukFragment(), "Produk");
+        adapter.addFragment(new KonfirmasiProdukFragment(), "Products");
         adapter.addFragment(new KonfirmasiGroomingFragment(), "Grooming");
-        adapter.addFragment(new KonfirmasiPenitipanFragment(), "Penitipan");
+        adapter.addFragment(new KonfirmasiPenitipanFragment(), "Animal Care");
         viewPager.setAdapter(adapter);
     }
 

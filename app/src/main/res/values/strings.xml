@@ -19,6 +19,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="ket_checkout">Pembayaran wajib dilakukan dalam 1x24 Jam via : BCA 223334444 a.n Keke</string>
+    <string name="ket_checkout2">Pembayaran wajib dilakukan dalam jangka waktu 2 jam setelah booking via : BCA 223334444 a.n Keke</string>
+    <string name="ket_tambahan">Status Order bisa ditemukan di menu History</string>
+    <string name="ket_tambahan2">Status Booking bisa ditemukan di menu History</string>
+    <string name="ket_tambahan3">PERHATIAN!</string>
+    <string name="ket_tambahan4">1. Akan dikenakan denda sebesar 100% per hari apabila pengembalian hewan peliharaan tidak sesuai tanggal pengembalian.</string>
+    <string name="ket_tambahan5">2. Akan dikenakan denda sebesar 25% per jam apabila posisi rumah tidak ada penghuni atau pemilik hewan tidak dapat dihubungi ketika staf kami mengandar hewan peliharaan.</string>
+    <string name="ket_tambahan6">Silahkan lanjutkan pembayaran ke menu Transfer Confirmation</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

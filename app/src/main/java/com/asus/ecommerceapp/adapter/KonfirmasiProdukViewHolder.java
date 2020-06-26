@@ -1,8 +1,9 @@
 package com.asus.ecommerceapp.adapter;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.asus.ecommerceapp.fragment.KonfirmasiProdukFragment.PICK_CONFIRMATION_PRODUK;
 
 public class KonfirmasiProdukViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tv_status)
@@ -66,7 +69,7 @@ public class KonfirmasiProdukViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 Intent intent = new Intent(itemView.getContext(), KonfirmasiProdukActivity.class);
                 intent.putExtra(KonfirmasiProdukActivity.KONFIRMASI_ITEM, new Gson().toJson(item));
-                itemView.getContext().startActivity(intent);
+                ((Activity) itemView.getContext()).startActivityForResult(intent,PICK_CONFIRMATION_PRODUK);
             }
         });
     }

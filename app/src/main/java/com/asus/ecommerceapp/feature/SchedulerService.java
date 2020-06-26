@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -29,8 +29,6 @@ import java.util.Random;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class SchedulerService extends GcmTaskService {
     public static String TAG_SERVICE="yang_baru";
@@ -54,7 +52,7 @@ public class SchedulerService extends GcmTaskService {
             @Override
             public void onResponse(Call<ResponseProduk> call, Response<ResponseProduk> response) {
                 if (response.isSuccessful()){
-                    Log.d(TAG, "Response" +response.body().getProduk());
+                    Log.d(">>>>", "Response" +response.body().getProduk());
                     List<ProdukItem> items= response.body().getProduk();
                     int index = new Random().nextInt(items.size());
 

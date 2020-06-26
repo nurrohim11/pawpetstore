@@ -5,7 +5,7 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -20,40 +20,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:id="@+id/ll_no"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="No Order Produk : "/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:id="@+id/tv_noorder"
-                android:layout_marginLeft="10dp"
-                android:text="Total" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/ll_no"
             android:gravity="center"
             android:id="@+id/ll_total"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:text="Total Belanja Anda : "/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:id="@+id/tv_ctotal"
                 android:layout_marginLeft="10dp"
                 android:text="Total" />
@@ -67,19 +45,34 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="Silahkan Transfer ke Rekening : 98012390823191203"/>
+                android:textSize="20sp"
+                android:text="@string/ket_checkout"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:textSize="15sp"
                 android:text="Barang di kirim ke alamat :"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:textSize="15sp"
                 android:id="@+id/tv_alamat"
                 android:text="Alamat"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="17sp"
+                android:text="@string/ket_tambahan"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:text="@string/ket_tambahan6"/>
         </LinearLayout>
     </RelativeLayout>
     <TableLayout
@@ -91,19 +84,6 @@
         android:stretchColumns="1">
 
         <TableRow android:background="@color/white">
-
-            <TextView
-                android:id="@+id/tv_total"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/defaultMargin"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="TERIMA KASIH. BEST REGARDS"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-        </TableRow>
-        <TableRow android:background="@color/white">
             <Button
                 android:id="@+id/btnSelesai"
                 android:layout_width="0dp"
@@ -114,7 +94,7 @@
                 android:layout_marginTop="@dimen/halfMargin"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_corner_blue"
-                android:text="SELESAI"
+                android:text="Done"
                 android:textColor="@color/white"
                 android:textSize="@dimen/product_detail_button" />
         </TableRow>

@@ -2,10 +2,13 @@ package com.asus.ecommerceapp.activity;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
+
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -69,7 +72,7 @@ public class GroomingActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Order Grooming");
+        getSupportActionBar().setTitle("Grooming Booking");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String[] plants = new String[]{
                 "Pilih Hewan",
@@ -173,17 +176,14 @@ public class GroomingActivity extends AppCompatActivity {
         edtTgl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // calender class's instance and get current date , month and year from calender
                 final Calendar c = Calendar.getInstance();
                 int mYear = c.get(Calendar.YEAR); // current year
                 int mMonth = c.get(Calendar.MONTH); // current month
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
-                // date picker dialog
                 datePickerDialog = new DatePickerDialog(GroomingActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        // set day of month , month and year value in the edit text
                         edtTgl.setText(dayOfMonth+ "-"+ (monthOfYear + 1) + "-" + year);
 
                     }
@@ -213,8 +213,13 @@ public class GroomingActivity extends AppCompatActivity {
                             public void onResponse(Call<ResponseOrderPenitipan> call, Response<ResponseOrderPenitipan> response) {
                                 if (response.body().getSuccess() == true){
                                     Toast.makeText(GroomingActivity.this, response.body().getInfo(), Toast.LENGTH_SHORT).show();
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            finish();
+                                        }
+                                    },1000);
                                     mRegProgres.dismiss();
-                                    finish();
                                 }else {
                                     mRegProgres.dismiss();
                                     Toast.makeText(GroomingActivity.this, response.body().getInfo(), Toast.LENGTH_SHORT).show();
@@ -229,7 +234,7 @@ public class GroomingActivity extends AppCompatActivity {
                         });
                     }
                 }else{
-                    Toast.makeText(GroomingActivity.this, "Anda Harus Login Terlebih Dahulu", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GroomingActivity.this, "Anda Harus Sign In Terlebih Dahulu", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -1,14 +1,16 @@
 package com.asus.ecommerceapp.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -27,6 +29,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.asus.ecommerceapp.fragment.KonfirmasiProdukFragment;
 import com.google.gson.Gson;
 import com.asus.ecommerceapp.MainActivity;
 import com.asus.ecommerceapp.R;
@@ -69,9 +72,6 @@ public class KonfirmasiProdukActivity extends AppCompatActivity {
     EditText edtNamaAkun;
     @BindView(R.id.btn_konfirmasi)
     Button btnKonfirmasi;
-    @BindView(R.id.sp_akun)
-    Spinner spAkun;
-    private String spAkunA;
     Bitmap bitmap, decoded;
     int success;
     int PICK_IMAGE_REQUEST = 1;
@@ -80,7 +80,7 @@ public class KonfirmasiProdukActivity extends AppCompatActivity {
 
     private Gson gson = new Gson();
     private HistoryPenitipanItem item;
-    private static final String TAG = KonfirmasiPenitipanActivity.class.getSimpleName();
+    private static final String TAG = KonfirmasiProdukActivity.class.getSimpleName();
 
     private String UPLOAD_URL = "http://pawspetstore.xyz/API/KonfirmasiProduk";
 
@@ -109,7 +109,7 @@ public class KonfirmasiProdukActivity extends AppCompatActivity {
         mRegProgres = new ProgressDialog(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Konfirmasi Pembayaran");
+        getSupportActionBar().setTitle("Payment Confirmation");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String[] no_akun = new String[]{
                 "Pilih",
@@ -123,23 +123,7 @@ public class KonfirmasiProdukActivity extends AppCompatActivity {
                 this, R.layout.spinner_item, plantsList);
 
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
-        spAkun.setAdapter(spinnerArrayAdapter);
-        final List<String> ukuran = new ArrayList<>(Arrays.asList(no_akun));
-        final ArrayAdapter<String> UkuranHewanAdapter = new ArrayAdapter<String>(
-                this, R.layout.spinner_item, ukuran);
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
-        spAkun.setAdapter(UkuranHewanAdapter);
-        spAkun.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spAkunA = (String) parent.getItemAtPosition(position);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,7 +136,7 @@ public class KonfirmasiProdukActivity extends AppCompatActivity {
         btnKonfirmasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+                confirmProduk();
             }
         });
     }
@@ -192,8 +176,9 @@ public class KonfirmasiProdukActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    private void uploadImage() {
-        final ProgressDialog loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
+
+    private void confirmProduk() {
+        final ProgressDialog loading = ProgressDialog.show(this, "Processing...", "Please wait...", false, false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
@@ -202,12 +187,20 @@ public class KonfirmasiProdukActivity extends AppCompatActivity {
                         try {
                             JSONObject jObj = new JSONObject(response);
                             success = jObj.getInt(TAG_SUCCESS);
+                            Log.d(TAG,"res "+String.valueOf(jObj));
 
                             if (success == 1) {
                                 Log.e("v Add", jObj.toString());
                                 Toast.makeText(KonfirmasiProdukActivity.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                                 kosong();
-                                startActivity(new Intent(KonfirmasiProdukActivity.this, MainActivity.class));
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent returnIntent = new Intent();
+                                        setResult(Activity.RESULT_OK,returnIntent);
+                                        finish();
+                                    }
+                                },1000);
                             } else {
                                 Toast.makeText(KonfirmasiProdukActivity.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                             }
@@ -222,7 +215,7 @@ public class KonfirmasiProdukActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         loading.dismiss();
 
-                        Toast.makeText(KonfirmasiProdukActivity.this, error.getMessage().toString(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(KonfirmasiProdukActivity.this, error.getMessage().toString(), Toast.LENGTH_LONG).show();
                         Log.e(TAG, error.getMessage().toString());
                     }
                 }) {
@@ -235,11 +228,10 @@ public class KonfirmasiProdukActivity extends AppCompatActivity {
                 params.put(KEY_TOTAL, editTotal.getText().toString().trim());
                 params.put(KEY_DARI, editDariAkun.getText().toString().trim());
                 params.put(KEY_NAMAAKUN, edtNamaAkun.getText().toString().trim());
-                String ukuran = spAkunA;
                 session = new UserSession(getApplicationContext());
-                params.put(KEY_KE, ukuran);
+                params.put(KEY_KE, "empty");
                 params.put(KEY_ID, session.getUserID());
-                Log.e(TAG, "params yang dikirim" + params);
+                Log.e(TAG, "params " + params);
                 return params;
             }
         };
@@ -293,6 +285,7 @@ public class KonfirmasiProdukActivity extends AppCompatActivity {
     private void kosong() {
         imageView.setImageResource(0);
     }
+
     private Boolean fieldCheck(){
         Boolean fieldCheck = true;
 
@@ -317,4 +310,3 @@ public class KonfirmasiProdukActivity extends AppCompatActivity {
         return fieldCheck;
     }
 }
-

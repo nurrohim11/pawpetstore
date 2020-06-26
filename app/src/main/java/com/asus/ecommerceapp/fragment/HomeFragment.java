@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +53,6 @@ public class HomeFragment extends Fragment {
     CircleIndicator indicator;
     private static int currentPage = 0;
     private static final Integer[] XMEN= {R.drawable.beast,R.drawable.charles,R.drawable.magneto,R.drawable.wolverine};
-    private ArrayList<Integer> XMENArray = new ArrayList<Integer>();
     Activity activity;
     public HomeFragment() {
         // Required empty public constructor
@@ -68,6 +67,12 @@ public class HomeFragment extends Fragment {
         init();
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ImageView imgGrooming = (ImageView) view.findViewById(R.id.img_grooming);
@@ -75,13 +80,16 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), GroomingActivity.class));
+//                getActivity().finish();
             }
         });
         ImageView imgNitip =(ImageView) view.findViewById(R.id.img_nitip);
         imgNitip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), PenitipanActivity.class));
+                Intent i = new Intent(getActivity(), PenitipanActivity.class);
+                startActivity(i);
+//                getActivity().finish();
             }
         });
         ImageView imgProduk =(ImageView)view.findViewById(R.id.img_produk);
@@ -113,7 +121,11 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<BannerResponse> call, Response<BannerResponse> response) {
                 ArrayList<BannerItem> heros = response.body().getBanner();
                 Log.d("baner>>>>>>>>>>> ",String.valueOf(response.body().getBanner()));
-                viewPager.setAdapter(new SliderAdapter(getContext(), heros));
+                if (getActivity()!=null){
+                    viewPager.setAdapter(new SliderAdapter(getContext(), heros));
+                }else{
+                    viewPager.setAdapter(null);
+                }
                 indicator.setViewPager(viewPager);
 
                 // Auto start of viewpager

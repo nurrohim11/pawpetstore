@@ -5,9 +5,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +27,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.support.constraint.Constraints.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +44,7 @@ public class KonfirmasiGroomingFragment extends Fragment {
     private APIInterface apiInterface;
     private APIClient apiClient = new APIClient();
     Activity activity;
+    public static final int PICK_CONFIRMATION_GROMING =2001;
 
 
     public KonfirmasiGroomingFragment() {
@@ -68,16 +68,17 @@ public class KonfirmasiGroomingFragment extends Fragment {
         adapter = new KonfirmasiGroomingHistory();
         rvGrooming.setLayoutManager(new LinearLayoutManager(context));
         rvGrooming.setAdapter(adapter);
-//        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(context, 2);
-//        rvGrooming.setLayoutManager(mLayoutManager);
-//        rvGrooming.addItemDecoration(new ProdukFragment.GridSpacingItemDecoration(2, dpToPx(10), true));
-//        rvGrooming.setItemAnima
-//        mRegProgres = new ProgressDialog(getActivity());tor(new DefaultItemAnimator());
-        rvGrooming.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
+
     private void loadData(){
-        mRegProgres = new ProgressDialog(getActivity());
+        mRegProgres = new ProgressDialog(getContext());
         session = new UserSession(getContext());
         mRegProgres.setTitle("Getting Data");
         mRegProgres.setMessage("Please Wait...");
@@ -89,12 +90,11 @@ public class KonfirmasiGroomingFragment extends Fragment {
             public void onResponse(Call<HistoryGroomingResponse> call, Response<HistoryGroomingResponse> response) {
                 if (response.isSuccessful()){
                     adapter.updateData(response.body().getHistoryGrooming());
-                    Log.d(TAG, "Response" +response.body().getHistoryGrooming());
-                    //mSwipeRefreshLayout.setRefreshing(false);
+                    Log.d(">>>>", "Response" +response.body().getHistoryGrooming());
                     mRegProgres.dismiss();
 
                 }else {
-                    Toast.makeText(getActivity(),"Getting Workshop Failed", Toast.LENGTH_SHORT);
+                    Toast.makeText(getContext(),"Getting Workshop Failed", Toast.LENGTH_SHORT);
                     mRegProgres.dismiss();
 
                 }

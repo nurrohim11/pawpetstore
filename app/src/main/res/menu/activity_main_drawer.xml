@@ -11,30 +11,30 @@
         <item
             android:id="@+id/nav_profil"
             android:icon="@drawable/ic_person_black_24dp"
-            android:title="Profil" />
+            android:title="Profile" />
         <item
             android:id="@+id/nav_produk"
-            android:icon="@drawable/ic_list_black_24dp"
-            android:title="Produk" />
+            android:icon="@drawable/simbolproduk"
+            android:title="Products" />
         <item
             android:id="@+id/nav_penitipan"
-            android:icon="@drawable/penitipan"
-            android:title="Booking Penitipan" />
+            android:icon="@drawable/simbolbooking"
+            android:title="Animal Care Booking" />
         <item
             android:id="@+id/nav_grooming"
-            android:icon="@drawable/groowing"
-            android:title="Booking Grooming" />
+            android:icon="@drawable/simbolbooking"
+            android:title="Grooming Booking" />
         <item
             android:id="@+id/nav_tf"
-            android:icon="@drawable/tf"
+            android:icon="@drawable/simboltransferconfirmation"
             android:title="Transfer Confirmation" />
         <item
             android:id="@+id/nav_history"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/simbolhistory"
             android:title="History" />
         <item
             android:id="@+id/nav_about"
-            android:icon="@drawable/history"
+            android:icon="@drawable/simbolabout"
             android:title="About" />
     </group>
 
@@ -42,11 +42,11 @@
         <menu>
             <item
                 android:id="@+id/nav_login"
-                android:icon="@drawable/login"
+                android:icon="@drawable/simbolsignin"
                 android:title="Login" />
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/logout"
+                android:icon="@drawable/simbolsignout"
                 android:title="Logout" />
         </menu>
     </item>

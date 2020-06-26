@@ -1,11 +1,11 @@
 package com.asus.ecommerceapp.activity;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.asus.ecommerceapp.R;
@@ -26,11 +26,11 @@ public class HistoryActivity extends AppCompatActivity implements TabLayout.OnTa
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("History Order");
+        getSupportActionBar().setTitle("History");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        tabLayout.addTab(tabLayout.newTab().setText("Order"));
+        tabLayout.addTab(tabLayout.newTab().setText("Products"));
         tabLayout.addTab(tabLayout.newTab().setText("Grooming"));
-        tabLayout.addTab(tabLayout.newTab().setText("Penitipan"));
+        tabLayout.addTab(tabLayout.newTab().setText("Animal Care"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         //Initializing viewPager

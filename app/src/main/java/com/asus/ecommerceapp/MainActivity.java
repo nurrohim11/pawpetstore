@@ -3,14 +3,20 @@ package com.asus.ecommerceapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.asus.ecommerceapp.fragment.KonfirmasiGroomingFragment;
+import com.asus.ecommerceapp.fragment.KonfirmasiPenitipanFragment;
+import com.asus.ecommerceapp.fragment.KonfirmasiProdukFragment;
+import com.google.android.material.navigation.NavigationView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,6 +59,8 @@ public class MainActivity extends AppCompatActivity
     private TextView tvNamaUser;
     private TextView tvEmailUser;
     public String deviceToken;
+    int type=10;
+    Bundle bundle;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +98,7 @@ public class MainActivity extends AppCompatActivity
         FirebaseMessaging.getInstance().subscribeToTopic("produk");
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -142,7 +147,7 @@ public class MainActivity extends AppCompatActivity
             }
             @Override
             public void onFailure(Call<Pelanggan> call, Throwable t) {
-                Toast.makeText(MainActivity.this,t.toString(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this,t.toString(),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -167,44 +172,42 @@ public class MainActivity extends AppCompatActivity
 
     Fragment fragment = null;
 
-        @Override
-        public boolean onNavigationItemSelected(MenuItem item) {
-            // Handle navigation view item clicks here.
-            int id = item.getItemId();
-            if(id ==R.id.nav_home){
-    //            ReplaceFragment(new HomeFragment());
-                fragment = new HomeFragment();
-            }else if (id == R.id.nav_profil) {
-                startActivity(new Intent(this, ProfilActivity.class));
-            } else if (id == R.id.nav_produk) {
-                fragment = new ProdukFragment();
-            } else if (id == R.id.nav_penitipan) {
-                startActivity(new Intent(this, PenitipanActivity.class));
-            } else if (id == R.id.nav_grooming) {
-                startActivity(new Intent(this, GroomingActivity.class));
-            } else if (id == R.id.nav_tf) {
-                fragment = new KonfirmasiFragment();
-            } else if (id == R.id.nav_history) {
-                startActivity(new Intent(this, HistoryActivity.class));
-            } else if (id == R.id.nav_about) {
-                fragment = new AboutFragment();
-            } else if (id == R.id.nav_login) {
-                startActivity(new Intent(this, LoginActivity.class));
-            } else if (id == R.id.nav_logout) {
-                UserSession session = new UserSession(this);
-                session.logoutUser();
-                finish();
-            }
-            if(fragment != null){
-                FragmentManager manager = getSupportFragmentManager();
-                manager.beginTransaction().replace(R.id.fragment_place, fragment, fragment.getTag()).commit();
-            }
-
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-            drawer.closeDrawer(GravityCompat.START);
-            return true;
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id ==R.id.nav_home){
+            fragment = new HomeFragment();
+        }else if (id == R.id.nav_profil) {
+            startActivity(new Intent(this, ProfilActivity.class));
+        } else if (id == R.id.nav_produk) {
+            fragment = new ProdukFragment();
+        } else if (id == R.id.nav_penitipan) {
+            startActivity(new Intent(this, PenitipanActivity.class));
+        } else if (id == R.id.nav_grooming) {
+            startActivity(new Intent(this, GroomingActivity.class));
+        } else if (id == R.id.nav_tf) {
+            fragment = new KonfirmasiFragment();
+        } else if (id == R.id.nav_history) {
+            startActivity(new Intent(this, HistoryActivity.class));
+        } else if (id == R.id.nav_about) {
+            fragment = new AboutFragment();
+        } else if (id == R.id.nav_login) {
+            startActivity(new Intent(this, LoginActivity.class));
+        } else if (id == R.id.nav_logout) {
+            UserSession session = new UserSession(this);
+            session.logoutUser();
+            finish();
         }
+        if(fragment != null){
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.fragment_place, fragment, fragment.getTag()).commit();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 
     private void showHome(){
 
@@ -214,6 +217,39 @@ public class MainActivity extends AppCompatActivity
             manager.beginTransaction().replace(R.id.fragment_place, fragment, fragment.getTag()).commit();
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(">>>>>",String.valueOf(requestCode));
+        if(requestCode==PenitipanActivity.PICK_PENITIPAN) {
+            showConfirmation(2);
+        }else if(requestCode == KonfirmasiProdukFragment.PICK_CONFIRMATION_PRODUK){
+            if(resultCode == RESULT_OK)
+                showHome();
+        }else if(requestCode == KonfirmasiGroomingFragment.PICK_CONFIRMATION_GROMING){
+            if(resultCode == RESULT_OK)
+                showHome();
+        }else if(requestCode == KonfirmasiPenitipanFragment.PICK_CONFIRMATION_PENITIPAN){
+            if(resultCode == RESULT_OK)
+                showHome();
+        }else{
+            showHome();
+        }
+    }
+
+    private void showConfirmation(int type) {
+        fragment = new KonfirmasiFragment();
+        if (fragment != null) {
+            Bundle arguments = new Bundle();
+            if(arguments != null){
+                arguments.putInt("type", type);
+                fragment.setArguments(arguments);
+                FragmentManager manager = getSupportFragmentManager();
+                manager.beginTransaction().replace(R.id.fragment_place, fragment, fragment.getTag()).commit();
+            }
+        }
     }
 
     public void hideMenu(){
@@ -235,6 +271,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume(){
         super.onResume();
+        type=-1;
     }
 
 }

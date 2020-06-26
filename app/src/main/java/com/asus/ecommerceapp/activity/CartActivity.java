@@ -7,16 +7,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -49,7 +51,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.support.constraint.Constraints.TAG;
 import static android.widget.LinearLayout.VERTICAL;
 
 public class CartActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, CartAdapter.CartAdapterCallback {
@@ -59,7 +60,6 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
     RecyclerView rvCart;
     @BindView(R.id.tv_total)
     TextView tvTotal;
-//    public KeranjangAdapter adapter;
     public CartAdapter adapter;
     @BindView(R.id.placeOrder)
     Button btnCheckout;
@@ -80,14 +80,14 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
     private KeranjangItem item;
     private Call<RequestResponse> request_call;
 
-//    @BindView(R.id.decrease)
     Button decrease;
-//    @BindView(R.id.increase)
     Button increase;
     private ProgressDialog mRegProgres;
-//    @BindView(R.id.tv_qty)
     EditText integerNumber;
     int value = 0;
+
+    public static final int PICK_CART = 12;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +95,7 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Keranjang Belanja");
+        getSupportActionBar().setTitle("Cart");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         swipeLayout.setOnRefreshListener(CartActivity.this);
         swipeLayout.setColorScheme(android.R.color.holo_blue_bright,
@@ -105,9 +105,6 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
         util = new Util();
         unbinder = ButterKnife.bind(this);
         mRegProgres = new ProgressDialog(this);
-//        value = Integer.parseInt(item.getJumlah());
-
-//        View inflatedView = getLayoutInflater().inflate(R.layout.dialog_edit_qty, null);
 
     }
     @Override
@@ -139,15 +136,12 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
     private void loadData(){
         session = new UserSession(this);
-//        loadTotal(session.getUserID());
         apiInterface = apiClient.getClient().create(APIInterface.class);
         call = apiInterface.getKeranjang(session.getUserID());
         call.enqueue(new Callback<KeranjangResponse>() {
             @Override
             public void onResponse(Call<KeranjangResponse> call, final Response<KeranjangResponse> response) {
                 if (response.isSuccessful()){
-//                    adapter.updateData(response.body().getKeranjang());
-                    Log.d(TAG, "Response keranjang" +response.body().getKeranjang());
                     list = response.body().getKeranjang();
                     if (list == null) Log.i("notepads", "NULL");
                     adapter = new CartAdapter(list,CartActivity.this, CartActivity.this);
@@ -163,18 +157,18 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
                         btnCheckout.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Snackbar snackbar = Snackbar.make(coordinatorLayout,"Keranjang belanja anda kosong",Toast.LENGTH_SHORT);
+                                @SuppressLint("WrongConstant") Snackbar snackbar = Snackbar.make(coordinatorLayout,"Cart anda kosong",Toast.LENGTH_SHORT);
                                 snackbar.setAction("OK", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Toast.makeText(getApplicationContext(),"Silahkan masukkan ke keranjang dulu",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(),"Silahkan masukkan ke cart dulu",Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
                                 snackbar.setActionTextColor(Color.BLUE);
 
                                 View snackbarView = snackbar.getView();
-                                TextView snackbarText = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                                TextView snackbarText = (TextView) snackbarView.findViewById(R.id.snackbar_text);
                                 snackbarText.setTextColor(Color.YELLOW);
                                 snackbar.show();
                             }
@@ -188,7 +182,7 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
                                 Bundle b = new Bundle();
                                 b.putString("total", total);
                                 i.putExtras(b);
-                                startActivity(i);
+                                startActivityForResult(i,PICK_CART);
                             }
                         });
                     }
@@ -201,13 +195,23 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_CART){
+            if(resultCode == RESULT_OK){
+                finish();
+            }
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         if (call != null) call.cancel();
     }
 
-//    show dialog edit quantity
     @Override
     public void onEditDialog(String id_keranjang, String jumlah) {
        editKeranjang(id_keranjang, jumlah);
@@ -261,11 +265,9 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
                 request_call.enqueue(new Callback<RequestResponse>() {
                     @Override
                     public void onResponse(Call<RequestResponse> call, Response<RequestResponse> response) {
-//                        if (response.body().getSuccess() == true){
                         if(response.body().getSuccess() == true) {
                             Toast.makeText(getApplicationContext(), response.body().getInfo(), Toast.LENGTH_SHORT).show();
                             loadData();
-//                            adapter.notifyDataSetChanged();
                         }else {
                             Toast.makeText(getApplicationContext(), response.body().getInfo(), Toast.LENGTH_SHORT).show();
                         }
@@ -276,48 +278,11 @@ public class CartActivity extends AppCompatActivity implements SwipeRefreshLayou
                         t.printStackTrace();
                     }
                 });
-//                Toast.makeText(getBaseContext(), "Thanks you "+id_keranjang+" "+integerNumber.getText().toString(), Toast.LENGTH_SHORT).show();
-//                adapter.notifyDataSetChanged();
             }
         });
         AlertDialog dialog = alert.create();
         dialog.show();
     }
-
-//    private  void loadTotal(String id){
-//        session = new UserSession(this);
-//        apiInterface = apiClient.getClient().create(APIInterface.class);
-//        callTotal = apiInterface.getTotal(id);
-//        callTotal.enqueue(new Callback<TotalKeranjang>() {
-//            @Override
-//            public void onResponse(Call<TotalKeranjang> call, Response<TotalKeranjang> response) {
-//                final TotalKeranjang item = response.body();
-//                if (response.isSuccessful()) {
-//                    tvTotal.setText(toRupiah(item.getTotal()));
-//
-//                    btnCheckout.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            String total = item.getTotal();
-//                            Intent i = new Intent(CartActivity.this, CheckoutActivity.class);
-//                            Bundle b = new Bundle();
-//                            b.putString("total", total);
-//                            i.putExtras(b);
-//                            startActivity(i);
-//                        }
-//                    });
-//                }else if (item.getTotal().equalsIgnoreCase("")){
-//                    tvTotal.setText(0);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<TotalKeranjang> call, Throwable t) {
-//
-//            }
-//        });
-//
-//    }
 
     @Override
     public void onRefresh() {

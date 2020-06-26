@@ -1,14 +1,16 @@
 package com.asus.ecommerceapp.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -27,6 +29,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.asus.ecommerceapp.fragment.KonfirmasiPenitipanFragment;
 import com.google.gson.Gson;
 import com.asus.ecommerceapp.MainActivity;
 import com.asus.ecommerceapp.R;
@@ -71,9 +74,6 @@ public class KonfirmasiPenitipanActivity extends AppCompatActivity {
     EditText edtNamaAkun;
     @BindView(R.id.btn_konfirmasi)
     Button btnKonfirmasi;
-    @BindView(R.id.sp_akun)
-    Spinner spAkun;
-    private String spAkunA;
     Bitmap bitmap, decoded;
     int success;
     int PICK_IMAGE_REQUEST = 1;
@@ -111,37 +111,9 @@ public class KonfirmasiPenitipanActivity extends AppCompatActivity {
         mRegProgres = new ProgressDialog(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Konfirmasi Pembayaran");
+        getSupportActionBar().setTitle("Payment Confirmation");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        String[] no_akun = new String[]{
-                "Pilih",
-                "0912308312930 a/n kenza",
-                "218973691236 a/n rohim"
-        };
-        // Initializing an ArrayAdapter
-        final List<String> plantsList = new ArrayList<>(Arrays.asList(no_akun));
 
-        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this, R.layout.spinner_item, plantsList);
-
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
-        spAkun.setAdapter(spinnerArrayAdapter);
-        final List<String> ukuran = new ArrayList<>(Arrays.asList(no_akun));
-        final ArrayAdapter<String> UkuranHewanAdapter = new ArrayAdapter<String>(
-                this, R.layout.spinner_item, ukuran);
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
-        spAkun.setAdapter(UkuranHewanAdapter);
-        spAkun.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spAkunA = (String) parent.getItemAtPosition(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,7 +126,7 @@ public class KonfirmasiPenitipanActivity extends AppCompatActivity {
         btnKonfirmasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+                confirmPenitipan();
             }
         });
     }
@@ -206,9 +178,9 @@ public class KonfirmasiPenitipanActivity extends AppCompatActivity {
         return encodedImage;
     }
 
-    private void uploadImage() {
+    private void confirmPenitipan() {
         //menampilkan progress dialog
-        final ProgressDialog loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
+        final ProgressDialog loading = ProgressDialog.show(this, "Processing...", "Please wait...", false, false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
@@ -225,7 +197,16 @@ public class KonfirmasiPenitipanActivity extends AppCompatActivity {
                                 Toast.makeText(KonfirmasiPenitipanActivity.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
 
                                 kosong();
-                                startActivity(new Intent(KonfirmasiPenitipanActivity.this, MainActivity.class));
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent returnIntent = new Intent();;
+                                        setResult(Activity.RESULT_OK,returnIntent);
+                                        finish();
+                                    }
+                                },1000);
+
                             } else {
                                 Toast.makeText(KonfirmasiPenitipanActivity.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                             }
@@ -256,12 +237,17 @@ public class KonfirmasiPenitipanActivity extends AppCompatActivity {
                 //menambah parameter yang di kirim ke web servis
                 params.put(KEY_IMAGE, getStringImage(decoded));
                 params.put(KEY_ORDER, editOrder.getText().toString().trim());
-                params.put(KEY_TOTAL, editTotal.getText().toString().trim());
+                String total = "0";
+                if(editTotal.getText().toString().equals("") || editTotal.getText().toString().equals("0")){
+                    total = "0";
+                }else{
+                    total = editTotal.getText().toString();
+                }
+                params.put(KEY_TOTAL, total);
                 params.put(KEY_DARI, editDariAkun.getText().toString().trim());
                 params.put(KEY_NAMAAKUN, edtNamaAkun.getText().toString().trim());
-                String ukuran = spAkunA;
                 session = new UserSession(getApplicationContext());
-                params.put(KEY_KE, ukuran);
+                params.put(KEY_KE, "empty");
                 params.put(KEY_ID, session.getUserID());
                 //kembali ke parameters
                 Log.e(TAG, "" + params);

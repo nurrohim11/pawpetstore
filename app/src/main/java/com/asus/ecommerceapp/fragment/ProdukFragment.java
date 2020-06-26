@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -31,8 +31,6 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.support.constraint.Constraints.TAG;
 
 
 /**
@@ -81,6 +79,7 @@ public class ProdukFragment extends Fragment {
         rv_produk.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
     private void loadData(){
         apiInterface = apiClient.getClient().create(APIInterface.class);
         apiCall = apiInterface.getBarang();
@@ -89,11 +88,11 @@ public class ProdukFragment extends Fragment {
             public void onResponse(Call<ResponseProduk> call, Response<ResponseProduk> response) {
                 if (response.isSuccessful()){
                     adapter.updateData(response.body().getProduk());
-                    Log.d(TAG, "Response" +response.body().getProduk());
+                    Log.d(">>>>", "Response" +response.body().getProduk());
                     //mSwipeRefreshLayout.setRefreshing(false);
-                    Toast.makeText(getActivity(),"response" +response.body().getProduk(), Toast.LENGTH_SHORT);
+//                    Toast.makeText(getActivity(),"response" +response.body().getProduk(), Toast.LENGTH_SHORT);
                 }else {
-                    Toast.makeText(getActivity(),"Getting Workshop Failed", Toast.LENGTH_SHORT);
+                    Toast.makeText(getActivity(),"Getting Product Failed", Toast.LENGTH_SHORT);
                 }
             }
             @Override
