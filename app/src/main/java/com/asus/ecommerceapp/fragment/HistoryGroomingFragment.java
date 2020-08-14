@@ -58,6 +58,7 @@ public class HistoryGroomingFragment extends Fragment {
         loadData();
         return  view;
     }
+
     private void setuplist() {
         adapter = new HistoryGroomingAdapter();
         rvGrooming.setLayoutManager(new LinearLayoutManager(context));
@@ -65,12 +66,14 @@ public class HistoryGroomingFragment extends Fragment {
         rvGrooming.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
     private void loadData(){
         mRegProgres = new ProgressDialog(getActivity());
         session = new UserSession(getContext());
         mRegProgres.setTitle("Getting Data");
         mRegProgres.setMessage("Please Wait...");
         mRegProgres.setCanceledOnTouchOutside(false);
+
         apiInterface =APIClient.getClient().create(APIInterface.class);
         call = apiInterface.getHistory(session.getUserID());
         call.enqueue(new Callback<HistoryGroomingResponse>() {

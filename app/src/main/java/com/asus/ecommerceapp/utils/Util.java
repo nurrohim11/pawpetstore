@@ -50,11 +50,6 @@ public class Util {
         return inClause;
     }
 
-    // Check email valid or not
-    public static boolean isValidEmail(String email) {
-        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
     // Get Error Message
     public static String getErrorMessage(Throwable t, Context context) {
         if (t instanceof SocketTimeoutException || t instanceof UnknownHostException || t instanceof ConnectException) {
@@ -62,5 +57,40 @@ public class Util {
         } else {
             return context.getResources().getString(R.string.Error500);
         }
+    }
+
+    public static boolean isValidEmail(String email) {
+        boolean validate;
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String emailPattern2 = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+\\.+[a-z]+";
+
+        if (email.matches(emailPattern)) {
+            validate = true;
+        } else if (email.matches(emailPattern2)) {
+            validate = true;
+        } else {
+            validate = false;
+        }
+
+        return validate;
+    }
+
+    public static boolean isHasLength(CharSequence data) {
+        return String.valueOf(data).length() >= 6;
+    }
+
+    public static boolean isHasSymbol(CharSequence data) {
+        String password = String.valueOf(data);
+        return !password.matches("[A-Za-z0-9 ]*");
+    }
+
+    public static boolean isHasUpperCase(CharSequence data) {
+        String password = String.valueOf(data);
+        return !password.equals(password.toLowerCase());
+    }
+
+    public static boolean isHasLowerCase(CharSequence data) {
+        String password = String.valueOf(data);
+        return !password.equals(password.toUpperCase());
     }
 }

@@ -1,5 +1,6 @@
 package com.asus.ecommerceapp.Networking;
 
+import com.asus.ecommerceapp.BuildConfig;
 import com.google.gson.JsonObject;
 import com.asus.ecommerceapp.model.Login.LoginRequest;
 import com.asus.ecommerceapp.model.Login.RequestResponse;
@@ -117,5 +118,13 @@ public interface APIInterface {
 
     @GET("lastPesan/{id}")
     Call<ResponseNotif> getLstPesan (@Path("id") String id);
+
+    public static String getProvinsi = BuildConfig.BASE_URL+"getProvinsi";
+
+    public static String registerUser = BuildConfig.BASE_URL+"registerUser";
+
+    public static String getKota = BuildConfig.BASE_URL+"getKota";
+
+    public static String getKecamatan = BuildConfig.BASE_URL+"getKecamatan";
 
 }

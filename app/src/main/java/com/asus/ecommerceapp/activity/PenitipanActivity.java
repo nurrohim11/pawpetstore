@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -127,15 +129,22 @@ public class PenitipanActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<ResponseOrderPenitipan> call, Response<ResponseOrderPenitipan> response) {
                                 if (response.body().getSuccess() == true){
-//                                    Bundle b = new Bundle();
-//                                    b.putInt("type",2);
-//                                    Intent intent=new Intent();
                                     mRegProgres.dismiss();
 //                                    Toast.makeText(PenitipanActivity.this, response.body().getInfo(), Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(PenitipanActivity.this, PenitipanCheckoutActivity.class);
-                                    startActivityForResult(intent,PICK_PENITIPAN);
-//                                    startActivity(intent);
-                                    finish();
+                                    Toast.makeText(PenitipanActivity.this, response.body().getInfo(), Toast.LENGTH_SHORT).show();
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intent = new Intent(PenitipanActivity.this, PenitipanCheckoutActivity.class);
+                                            startActivityForResult(intent,PICK_PENITIPAN);
+                                            finish();
+                                        }
+                                    },1000);
+
+//                                    mRegProgres.dismiss();
+//                                    Intent intent = new Intent(PenitipanActivity.this, PenitipanCheckoutActivity.class);
+//                                    startActivityForResult(intent,PICK_PENITIPAN);
+//                                    finish();
                                 }else{
                                     mRegProgres.dismiss();
                                     Toast.makeText(PenitipanActivity.this, response.body().getInfo(), Toast.LENGTH_SHORT).show();

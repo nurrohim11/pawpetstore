@@ -51,6 +51,7 @@ public class GroomingActivity extends AppCompatActivity {
     Spinner spJenisHewan;
     @BindView(R.id.sp_ukuran)
     Spinner spUkuran;
+    public static final int PICK_GROOMING = 3;
 
     private ProgressDialog mRegProgres;
 
@@ -212,14 +213,17 @@ public class GroomingActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<ResponseOrderPenitipan> call, Response<ResponseOrderPenitipan> response) {
                                 if (response.body().getSuccess() == true){
+                                    mRegProgres.dismiss();
+//                                    Toast.makeText(PenitipanActivity.this, response.body().getInfo(), Toast.LENGTH_SHORT).show();
                                     Toast.makeText(GroomingActivity.this, response.body().getInfo(), Toast.LENGTH_SHORT).show();
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
+                                            Intent intent = new Intent(GroomingActivity.this, GroomingCheckoutActivity.class);
+                                            startActivityForResult(intent,PICK_GROOMING);
                                             finish();
                                         }
                                     },1000);
-                                    mRegProgres.dismiss();
                                 }else {
                                     mRegProgres.dismiss();
                                     Toast.makeText(GroomingActivity.this, response.body().getInfo(), Toast.LENGTH_SHORT).show();
